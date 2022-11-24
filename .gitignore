@@ -1,0 +1,20 @@
+# system files
+.DS_Store
+.vscode
+
+# cache files
+.sass-cache
+
+# log files
+npm-debug.log
+
+# dependencies
+node_modules
+bower_components
+
+# temporary directories used by the scaffold
+tmp
+app/google_cert.pem
+
+# generated output directory
+include
