@@ -3,7 +3,6 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 
 const httpServer = createServer((req, res) => {
-  console.log(req.url);
   if (req.url !== "/") {
     res.writeHead(404);
     res.end("Not found");
