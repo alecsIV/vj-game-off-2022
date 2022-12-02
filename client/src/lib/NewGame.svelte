@@ -1,7 +1,10 @@
 <script>
+
+  export let socket; 
   function createGame() {
     const id = generateId(6);
     window.location.href += `lobby#${id}`;
+    socket.emit("join-room", id);
   }
 
     // dec2hex :: Integer -> String

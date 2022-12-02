@@ -1,6 +1,14 @@
 <script>
   import { Router, Route, Link } from './../node_modules/svelte-navigator/';
   import NewGame from './lib/NewGame.svelte';
+  import { io } from 'socket.io-client'
+
+  const socket = io('http://localhost:3000');
+
+  socket.on("connect", () => {
+    console.log(socket.connected); // true
+  });
+
 </script>
 
 <Router>
@@ -9,7 +17,11 @@
     <Route path="/">
       <h1>Back to the Drawing Board</h1>
       <!-- <Link to="lobby">Create a game</Link> -->
-      <NewGame />
+      {#await socket}
+      <p>Loading...</p>
+      {:then socket}
+      <NewGame socket={socket} />
+      {/await}
       <Link to="rules">How to play</Link>
     </Route>
 
