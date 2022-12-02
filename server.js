@@ -35,12 +35,20 @@ io.on("connection", (socket) => {
     console.log(`disconnect ${socket.id} due to ${reason}`);
   });
 
-  socket.on('join-room', (room, cb) => {
-    socket.join(room);
-    cb({
-        content: `Joined ${room}`,
-        id: socket.id,
-    });
+  /* @TODO:
+  - show number of connected users
+  - create different rooms with separate ids
+  */
+  socket.join('default room');
+
+  socket.on('join-room', () => {
+    socket.to('game1').emit('chat message', 'game 1');
+    console.log('joined room game 1');
+    // io.to('game1').emit('chat-message');
+    // cb({
+    //     content: `Joined ${room}`,
+    //     id: socket.id,
+    // });
 
     socket.on('send-nickname', (nickname) => {
       socket.nickname = nickname;

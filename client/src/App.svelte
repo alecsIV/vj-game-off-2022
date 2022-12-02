@@ -9,6 +9,12 @@
     console.log(socket.connected); // true
   });
 
+  let message;
+
+  socket.on('chat-message', (msg) => {
+    message = msg;
+  });
+
 </script>
 
 <Router>
@@ -34,6 +40,11 @@
         <label for="nickname"></label>
         <input id="nickname" type="text" />
       </form>
+      {#await message}
+      <p>Loading...</p>
+      {:then message}
+      <p>{message}</p>
+      {/await}
     </Route>
   </main>
   

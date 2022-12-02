@@ -4,7 +4,8 @@
   function createGame() {
     const id = generateId(6);
     window.location.href += `lobby#${id}`;
-    socket.emit("join-room", id);
+    console.log('socket', socket);
+    socket.emit("join-room");
   }
 
     // dec2hex :: Integer -> String
