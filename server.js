@@ -23,10 +23,11 @@ const io = new Server(httpServer, {
     // Socket.IO options
     cors: {
         origin: ['http://127.0.0.1:5173', 'http://localhost:5173'],
+        credentials: true
     },
 });
 
-let users = [];
+let users = {};
 
 io.on("connection", (socket) => {
   console.log(`connect ${socket.id}`);
@@ -39,22 +40,26 @@ io.on("connection", (socket) => {
   - show number of connected users
   - create different rooms with separate ids
   */
-  socket.join('default room');
+  // socket.join('default room');
 
-  socket.on('join-room', () => {
-    socket.to('game1').emit('chat message', 'game 1');
-    console.log('joined room game 1');
+  socket.on('join-room', (room, callback) => {
+    socket.join(room);
+    callback({
+      content: `Joined ${room}`,
+    });
+    // socket.to('game1').emit('chat message', 'game 1');
+    // console.log('joined room game 1');
     // io.to('game1').emit('chat-message');
     // cb({
     //     content: `Joined ${room}`,
     //     id: socket.id,
     // });
 
-    socket.on('send-nickname', (nickname) => {
-      socket.nickname = nickname;
-      users.push(socket.nickname);
-      console.log(users);
-  });
+  //   socket.on('send-nickname', (nickname) => {
+  //     socket.nickname = nickname;
+  //     users.push(socket.nickname);
+  //     console.log(users);
+  // });
 })
 });
 

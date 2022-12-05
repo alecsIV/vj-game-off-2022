@@ -2,6 +2,7 @@
   import { Router, Route, Link } from './../node_modules/svelte-navigator/';
   import NewGame from './lib/NewGame.svelte';
   import { io } from 'socket.io-client'
+  import Lobby from './lib/Lobby.svelte';
 
   const socket = io('http://localhost:3000');
 
@@ -36,15 +37,7 @@
     </Route>
 
     <Route path="lobby">
-      <form>
-        <label for="nickname"></label>
-        <input id="nickname" type="text" />
-      </form>
-      {#await message}
-      <p>Loading...</p>
-      {:then message}
-      <p>{message}</p>
-      {/await}
+      <Lobby socket={socket}/>
     </Route>
   </main>
   

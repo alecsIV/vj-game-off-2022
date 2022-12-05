@@ -5,7 +5,10 @@
     const id = generateId(6);
     window.location.href += `lobby#${id}`;
     console.log('socket', socket);
-    socket.emit("join-room");
+    socket.emit("join-room", id, response => {
+      const { content } = response;
+      console.log(content);
+    });
   }
 
     // dec2hex :: Integer -> String
