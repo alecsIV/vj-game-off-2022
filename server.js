@@ -40,7 +40,10 @@ io.on( "connection", ( socket ) => {
   /* @TODO:
   - show number of connected users
   - create different rooms with separate ids
+  - set up the game session 
+  - name the game state ( to run the different multiplayer games)
   */
+ 
   // socket.join('default room');
 
   socket.on( 'join-room', ( room, nickname, callback ) => {
