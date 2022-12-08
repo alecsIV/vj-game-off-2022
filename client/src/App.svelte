@@ -1,10 +1,11 @@
 <script>
-  import { Router, Route, Link } from './../node_modules/svelte-navigator/';
-  import NewGame from './lib/NewGame.svelte';
-  import { io } from 'socket.io-client'
-  import Lobby from './lib/Lobby.svelte';
+  import { Router, Route, Link } from "./../node_modules/svelte-navigator/";
+  import NewGame from "./lib/NewGame.svelte";
+  import { io } from "socket.io-client";
+  import Lobby from "./lib/Lobby.svelte";
+  import GameController from "./lib/GameController.svelte";
 
-  const socket = io('http://localhost:3000');
+  const socket = io("http://localhost:3000");
 
   socket.on("connect", () => {
     console.log(socket.connected); // true
@@ -12,22 +13,22 @@
 
   let message;
 
-  socket.on('chat-message', (msg) => {
+  socket.on("chat-message", (msg) => {
     message = msg;
   });
 
+  const hasBeenReferred = document.referrer;
 </script>
 
 <Router>
-
   <main>
     <Route path="/">
       <h1>Back to the Drawing Board</h1>
       <!-- <Link to="lobby">Create a game</Link> -->
       {#await socket}
-      <p>Loading...</p>
+        <p>Loading...</p>
       {:then socket}
-      <NewGame socket={socket} />
+        <NewGame {socket} />
       {/await}
       <Link to="rules">How to play</Link>
     </Route>
@@ -37,10 +38,16 @@
     </Route>
 
     <Route path="lobby">
-      <Lobby socket={socket}/>
+      <Lobby {socket} />
     </Route>
+
+    {#if hasBeenReferred}
+      <Route path="game">
+        <GameController />
+      </Route>
+    {/if}
   </main>
-  
+
   <style>
     .logo {
       height: 6em;

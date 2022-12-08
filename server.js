@@ -34,40 +34,47 @@ io.on( "connection", ( socket ) => {
   console.log( `connect ${socket.id}` );
 
   socket.on( "disconnect", ( reason ) => {
+    console.log('socket user', socket.username);
     console.log( `disconnect ${socket.id} due to ${reason}` );
   } );
 
   /* @TODO:
-  - show number of connected users
-  - create different rooms with separate ids
   - set up the game session 
   - name the game state ( to run the different multiplayer games)
   */
- 
+
   // socket.join('default room');
 
+  // socket.on("disconnecting", () => {
+  //   console.log(socket.rooms); // the Set contains at least the socket ID
+  // });
+
   socket.on( 'join-room', ( room, nickname, callback ) => {
+    console.log('rooms', socket.rooms);
     let err;
     if ( !users[ room ] ) users[ room ] = new Set();
+    if ( !users.hash ) users.hash = {};
     if ( users[ room ].has( nickname ) ) {
       err = 'User already exists';
       callback( {
         content: err,
         success: false,
-        users: Array.from(users[room]),
+        users: Array.from( users[ room ] ),
         numUsers: users[ room ].size
       } )
       return;
     }
-
+    
+    socket.username = nickname;
     users[ room ].add( nickname );
+    users.hash[socket.id] = nickname;
 
     socket.join( room );
 
     callback( {
       content: `${nickname} joined ${room}`,
       success: true,
-      users: Array.from(users[room]),
+      users: Array.from( users[ room ] ),
       numUsers: users[ room ].size
     } );
     // socket.to('game1').emit('chat message', 'game 1');
