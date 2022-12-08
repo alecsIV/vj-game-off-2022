@@ -18,6 +18,7 @@
       console.log(content);
       console.log("Logged users", users);
       console.log("Total users", numUsers);
+      if (success) gameState.players = users;
     });
   };
 
