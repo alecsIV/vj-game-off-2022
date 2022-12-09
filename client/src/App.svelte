@@ -17,7 +17,8 @@
     message = msg;
   });
 
-  const hasBeenReferred = document.referrer;
+  // const hasBeenReferred = document.referrer;
+  // console.log('hasBeenReferred', hasBeenReferred);
 </script>
 
 <Router>
@@ -41,11 +42,9 @@
       <Lobby {socket} />
     </Route>
 
-    {#if hasBeenReferred}
-      <Route path="game">
-        <GameController />
-      </Route>
-    {/if}
+    <Route path="game">
+      <GameController />
+    </Route>
   </main>
 
   <style>

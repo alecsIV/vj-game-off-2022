@@ -2,8 +2,8 @@
   import {onMount} from 'svelte';
   export let gameState;
   // import { gameState } from './stores';
-
-  $gameState.round += 1;
+  let drawingBoardContainer;
+  $gameState.round = 1;
 
   function DrawingBoard(opts) {
     console.log('opts', opts);
@@ -219,18 +219,20 @@
 
     return this;
   }
+
   // Usage:
   //
   // const db1 = new DrawingBoard({
   //   container: document.querySelector('.some-elem'),
   // });
 
-     onMount((container) => new DrawingBoard({container}));
+  onMount(() => {
+    new DrawingBoard({container: drawingBoardContainer});
+  });
+
 </script>
 
 <h1>Round: {$gameState.round}</h1>
+<h2>Current user: {$gameState.currentUser}</h2>
 
-{#each $gameState.players as player}
-  <h1>{player}</h1>
-  <div id={player} class="drawing-board" on:mount/>
-{/each}
+  <div id={$gameState.currentUser} class="drawing-board" bind:this={drawingBoardContainer}/>

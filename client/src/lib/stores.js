@@ -4,4 +4,5 @@ export const gameState = writable({
 	scene: null,
 	players: [],
 	round: 0,
+	currentUser: null
 });
