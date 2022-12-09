@@ -18,11 +18,13 @@
       console.log(content);
       console.log("Logged users", users);
       console.log("Total users", numUsers);
+      if (success) $gameState.players = users;
     });
   };
 
   const startGame = () => {
     $gameState.scene = 1;
+    console.log('gamestate scene', $gameState.scene);
     navigate(`/game#${id}`);
   };
 </script>

@@ -9,9 +9,9 @@
 </script>
 
 {#if $gameState.scene === 1 }
-<GameScreen />
+    <GameScreen {gameState} />
 {:else if $gameState.scene === 2}
-<VotingScreen />
+    <VotingScreen />
 {:else if $gameState.scene === 3}
-<Scoreboard />
+    <Scoreboard />
 {/if}
