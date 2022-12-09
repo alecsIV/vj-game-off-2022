@@ -234,5 +234,4 @@
 
 <h1>Round: {$gameState.round}</h1>
 <h2>Current user: {$gameState.currentUser}</h2>
-
-  <div id={$gameState.currentUser} class="drawing-board" bind:this={drawingBoardContainer}/>
+<div id={$gameState.currentUser} class="drawing-board" bind:this={drawingBoardContainer}/>
